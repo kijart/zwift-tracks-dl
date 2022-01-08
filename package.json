@@ -1,0 +1,30 @@
+{
+  "name": "zwift-tracks-dl",
+  "version": "1.0.0",
+  "description": "Zwift route and segment downloader in GPX format",
+  "author": "Luis Miguel Vicente Fuentes",
+  "license": "MIT",
+  "keywords": [
+    "zwift",
+    "zwo",
+    "bike",
+    "route",
+    "routes",
+    "segment",
+    "segments",
+    "track",
+    "tracks",
+    "gpx"
+  ],
+  "main": "bin/index.js",
+  "bin": {
+    "zwift-tracks-dl": "./bin/index.mjs"
+  },
+  "scripts": {
+    "start": "node bin/index.mjs"
+  },
+  "dependencies": {
+    "node-fetch": "3.1.0",
+    "zwift-data": "1.11.3"
+  }
+}
