@@ -70,17 +70,21 @@ const cli = () => {
     fs.mkdirSync(ROUTES_DIR);
   }
 
-  routes
-    .filter((route) => route.stravaSegmentId !== undefined)
-    .map((segmentData) => exportTrack(segmentData, ROUTES_DIR));
+  Promise.all(
+    routes
+      .filter((route) => route.stravaSegmentId !== undefined)
+      .map(async (segmentData) => await exportTrack(segmentData, ROUTES_DIR))
+  );
 
   if (!fs.existsSync(SEGMENTS_DIR)) {
     fs.mkdirSync(SEGMENTS_DIR);
   }
 
-  segments
-    .filter((route) => route.stravaSegmentId !== undefined)
-    .map((segmentData) => exportTrack(segmentData, SEGMENTS_DIR));
+  Promise.all(
+    segments
+      .filter((route) => route.stravaSegmentId !== undefined)
+      .map(async (segmentData) => await exportTrack(segmentData, SEGMENTS_DIR))
+  );
 };
 
 // run
