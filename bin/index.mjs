@@ -56,11 +56,13 @@ const exportTrack = async (segmentData, trackDir) => {
   fs.writeFileSync(`${trackDir}/${filename}`, buildGPXOutput);
 };
 
-const cli = () => {
+const cli = async () => {
   // const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
   const BASE_DIR = path.resolve(process.cwd(), 'tracks');
   const ROUTES_DIR = path.resolve(BASE_DIR, 'routes');
   const SEGMENTS_DIR = path.resolve(BASE_DIR, 'segments');
+  const filteredRoutes = routes.filter((route) => route.stravaSegmentId !== undefined);
+  const filteredSegments = segments.filter((route) => route.stravaSegmentId !== undefined);
 
   if (!fs.existsSync(BASE_DIR)) {
     fs.mkdirSync(BASE_DIR);
@@ -70,20 +72,13 @@ const cli = () => {
     fs.mkdirSync(ROUTES_DIR);
   }
 
-  Promise.all(
-    routes
-      .filter((route) => route.stravaSegmentId !== undefined)
-      .map(async (segmentData) => await exportTrack(segmentData, ROUTES_DIR))
-  );
-
   if (!fs.existsSync(SEGMENTS_DIR)) {
     fs.mkdirSync(SEGMENTS_DIR);
   }
 
-  Promise.all(
-    segments
-      .filter((route) => route.stravaSegmentId !== undefined)
-      .map(async (segmentData) => await exportTrack(segmentData, SEGMENTS_DIR))
+  await Promise.all(
+    filteredRoutes.map(async (segmentData) => await exportTrack(segmentData, ROUTES_DIR)),
+    filteredSegments.map(async (segmentData) => await exportTrack(segmentData, SEGMENTS_DIR))
   );
 };
 
