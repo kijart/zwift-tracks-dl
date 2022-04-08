@@ -1,5 +1,7 @@
 # Zwift tracks downloader
 
+[![npm](https://img.shields.io/npm/v/zwift-tracks-dl)](https://www.npmjs.com/package/zwift-tracks-dl)
+
 Zwift route and segment downloader in GPX format command line utility
 
 ## Usage
