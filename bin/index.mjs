@@ -80,6 +80,10 @@ const cli = async () => {
     filteredRoutes.map(async (segmentData) => await exportTrack(segmentData, ROUTES_DIR)),
     filteredSegments.map(async (segmentData) => await exportTrack(segmentData, SEGMENTS_DIR))
   );
+
+  console.info(`Total tracks generated: ${filteredRoutes.length + filteredSegments.length}`);
+  console.info(`Routes generated: ${filteredRoutes.length}`);
+  console.info(`Segments generated: ${filteredSegments.length}`);
 };
 
 // run
