@@ -24,7 +24,7 @@
     "start": "node bin/index.mjs"
   },
   "dependencies": {
-    "node-fetch": "3.1.0",
-    "zwift-data": "1.11.3"
+    "node-fetch": "3.2.x",
+    "zwift-data": "1.x"
   }
 }
