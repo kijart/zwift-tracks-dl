@@ -39,7 +39,7 @@ jobs:
             echo "There are no changes, skipping"
           fi
       - name: Release
-        if: ${{ steps.update-package-lock-file.outputs.changes }}
+        # if: ${{ steps.update-package-lock-file.outputs.changes }}
         env:
           GITHUB_TOKEN: ${{ github.token }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
