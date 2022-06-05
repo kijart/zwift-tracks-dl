@@ -1,0 +1,46 @@
+name: Release
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Get node version
+        run: echo "ACT_NODE_VERSION=$(cat .nvmrc)" >> $GITHUB_ENV
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.ACT_NODE_VERSION }}
+      - name: Install dependencies
+        run: npm i
+      - name: Update package-lock.json file
+        id: update-package-lock-file
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          if [[ `git status --porcelain` ]]; then
+            git config user.name ${{ github.actor }}
+            git config user.email 1217588+kijart@users.noreply.github.com
+            git add package-lock.json
+            git commit -m "perf: update project dependencies"
+            git push origin master
+            echo ::set-output name=changes::true
+          else
+            echo "There are no changes, skipping"
+          fi
+      - name: Release
+        if: ${{ steps.update-package-lock-file.outputs.changes }}
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npx semantic-release
