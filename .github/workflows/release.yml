@@ -22,7 +22,9 @@ jobs:
         with:
           node-version: ${{ env.ACT_NODE_VERSION }}
       - name: Install dependencies
-        run: npm i
+        run: |
+          rm package-lock.json
+          npm i
       - name: Update package-lock.json file
         id: update-package-lock-file
         env:
