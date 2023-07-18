@@ -1,10 +1,8 @@
 #!/usr/bin/env node
 
 import { routes, segments } from 'zwift-data';
-import fetch from 'node-fetch';
 import fs from 'fs';
 import path from 'path';
-// import url from 'url';
 
 const fetchStravaSegment = async (stravaSegmentId) => {
   const response = await fetch(
@@ -57,7 +55,6 @@ const exportTrack = async (segmentData, trackDir) => {
 };
 
 const cli = async () => {
-  // const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
   const BASE_DIR = path.resolve(process.cwd(), 'tracks');
   const ROUTES_DIR = path.resolve(BASE_DIR, 'routes');
   const SEGMENTS_DIR = path.resolve(BASE_DIR, 'segments');
