@@ -36,7 +36,7 @@ jobs:
             git add package-lock.json
             git commit -m "perf: update project dependencies"
             git push origin master
-            echo "{changes}={true}" >> $GITHUB_OUTPUT
+            echo "changes=true" >> $GITHUB_OUTPUT
           else
             echo "There are no changes, skipping"
           fi
