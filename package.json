@@ -16,6 +16,14 @@
     "tracks",
     "gpx"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kijart/zwift-tracks-dl.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kijart/zwift-tracks-dl/issues"
+  },
+  "homepage": "https://github.com/kijart/zwift-tracks-dl#readme",
   "main": "bin/index.js",
   "bin": {
     "zwift-tracks-dl": "./bin/index.mjs"
