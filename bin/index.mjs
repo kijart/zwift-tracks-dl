@@ -10,8 +10,7 @@ const fetchStravaSegment = async (stravaSegmentId) => {
   );
 
   if (response.status !== 200) {
-    console.error(`Could not fetch segment '${stravaSegmentId}'`);
-    process.exit(1);
+    return Promise.reject(`Could not fetch segment '${stravaSegmentId}'`);
   }
 
   return await response.json();
@@ -43,15 +42,19 @@ const buildGPX = ({ segmentData, latlngList, altitudeList }) => {
 };
 
 const exportTrack = async (segmentData, trackDir) => {
-  const { altitude, latlng } = await fetchStravaSegment(segmentData.stravaSegmentId);
-  const filename = `zwift-${segmentData.world}-${segmentData.slug}-${segmentData.distance}km-${segmentData.stravaSegmentId}.gpx`;
-  const buildGPXOutput = buildGPX({
-    segmentData,
-    latlngList: latlng,
-    altitudeList: altitude,
-  });
+  try {
+    const { altitude, latlng } = await fetchStravaSegment(segmentData.stravaSegmentId);
+    const filename = `zwift-${segmentData.world}-${segmentData.slug}-${segmentData.distance}km-${segmentData.stravaSegmentId}.gpx`;
+    const buildGPXOutput = buildGPX({
+      segmentData,
+      latlngList: latlng,
+      altitudeList: altitude,
+    });
 
-  fs.writeFileSync(`${trackDir}/${filename}`, buildGPXOutput);
+    fs.writeFileSync(`${trackDir}/${filename}`, buildGPXOutput);
+  } catch (error) {
+    console.error(`Error: ${error}`);
+  }
 };
 
 const cli = async () => {
