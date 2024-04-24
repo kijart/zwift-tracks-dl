@@ -11,5 +11,6 @@ module.exports = {
         message: 'chore(release): v${nextRelease.version}',
       },
     ],
+    '@semantic-release/github',
   ],
 };
