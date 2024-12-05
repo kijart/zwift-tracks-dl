@@ -1,6 +1,6 @@
 {
   "name": "zwift-tracks-dl",
-  "version": "1.5.16",
+  "version": "1.5.17",
   "description": "Zwift route and segment downloader in GPX format",
   "author": "Luis Miguel Vicente Fuentes",
   "license": "MIT",
